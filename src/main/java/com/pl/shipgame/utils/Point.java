@@ -3,6 +3,10 @@ package com.pl.shipgame.utils;
 import java.util.Objects;
 
 public class Point {
+    private static String HIDDEN = "?";
+    private static String SHIP_HIT = "x";
+    private static String MISS = "o";
+    
 	private int x;
 	private int y;
 	private boolean isHit;
@@ -65,6 +69,15 @@ public class Point {
 			return false;
 		Point other = (Point) obj;
 		return isHit == other.isHit && x == other.x && y == other.y;
+	}
+	
+	public String draw() {
+	    if(!isHit) {
+	        return HIDDEN;
+	    } else if (isShipSet) {
+	        return SHIP_HIT;
+	    }
+        return MISS;
 	}
 	
 }

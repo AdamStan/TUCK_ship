@@ -6,25 +6,38 @@ import java.util.Random;
 
 public class Settings {
 	
-	private int width = 10;
-	private int height = 10;
-	private int amountOfShips = 5;
+    private static final Random rand = new Random();
+	private int size = 3;
+	private int amountOfShips = 3;
 	
-	List<Ship> ships = new ArrayList<>();
+	private List<Ship> ships = new ArrayList<>();
 
 	public static Settings getDefaultSettings() {
 		Settings settings = new Settings();
-		settings.addShips();
+		for(int i = 0; i < 5; i++) {
+		    settings.addShips();
+		}
 		return settings;
 	}
 
 	private void addShips() {
-		Random rand = new Random();
 		if(rand.nextBoolean() ) {
 			ships.add(new SingleMastedShip());
 		} else {
 			ships.add(new TwoMastedShip());
 		}
 	}
+
+    public int getMaxSize() {
+        return size;
+    }
+
+    public int getAmountOfShips() {
+        return amountOfShips;
+    }
+
+    public List<Ship> getShips() {
+        return ships;
+    }
 
 }

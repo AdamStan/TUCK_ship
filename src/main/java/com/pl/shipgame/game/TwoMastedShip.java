@@ -4,10 +4,16 @@ import com.pl.shipgame.utils.Point;
 
 public class TwoMastedShip extends Ship {
 
-	@Override
-	protected boolean canPointBeAdded(Point point) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private static final int MAX_DECK_SIZE = 2;
+
+    @Override
+    protected boolean canPointBeAdded(Point point) {
+        return MAX_DECK_SIZE > deckSize();
+    }
+
+    @Override
+    protected boolean isReady() {
+        return deckSize() == MAX_DECK_SIZE;
+    }
 
 }
