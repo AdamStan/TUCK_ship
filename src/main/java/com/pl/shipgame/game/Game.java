@@ -1,10 +1,14 @@
 package com.pl.shipgame.game;
 
+import java.util.List;
+
 import com.pl.shipgame.console.ConsoleApi;
 import com.pl.shipgame.game.utils.Shot;
+import com.pl.shipgame.game.utils.Status;
 
 public class Game {
-    GameBoard board;
+    private GameBoard board;
+    private ConsoleApi console;
     
     private Game() {
         
@@ -19,20 +23,28 @@ public class Game {
     }
     
     public void startConsoleGame() {
-        ConsoleApi console = new ConsoleApi();
+        console = new ConsoleApi();
         console.gameLoop(this);
     }
-
-    public void startWindowGame() {
-        throw new UnsupportedOperationException();
+    
+    public void restartConsoleGame() {
+        board = new GameBoard();
+        console.clearHistory();
     }
 
-    public void setShot(Shot readShot) {
+    public Boolean setShot(Shot readShot) {
+        Boolean wasShipHit = null;
         try {
-            board.setShot(readShot);
+            wasShipHit = Boolean.valueOf(board.setShot(readShot));
         } catch(Exception ex) {
-            ex.printStackTrace();
+            System.out.println("Something went wrong");
+            // ignore
         }
+        return wasShipHit;
+    }
+    
+    public List<List<Status>> getPointsStatus() {
+        return board.getStatuses();
     }
 
     public void draw() {

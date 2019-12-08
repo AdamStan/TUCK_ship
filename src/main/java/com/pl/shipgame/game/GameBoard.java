@@ -97,11 +97,24 @@ public class GameBoard implements Drawable{
             for (PointOnBoard point : row) {
                 point.draw();
             }
-            System.out.println();;
+            System.out.println();
         }
     }
 
-    public void setShot(Shot shot) {
-        points.get(shot.getX() - 1).get(shot.getY() - 1).status.setHit(true);
+    public boolean setShot(Shot shot) {
+        PointOnBoard point = points.get(shot.getX() - 1).get(shot.getY() - 1);
+        point.status.setHit(true);
+        return point.status.hasShip();
+    }
+
+    public List<List<Status>> getStatuses() {
+        List<List<Status>> statuses = new ArrayList<>();
+        for(List<PointOnBoard> listOfPositions : points) {
+            statuses.add(new ArrayList<>());
+            for(PointOnBoard position : listOfPositions) {
+                statuses.get(statuses.size() - 1).add(position.status);
+            }
+        }
+        return statuses;
     }
 }

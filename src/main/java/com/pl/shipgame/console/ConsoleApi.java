@@ -13,27 +13,30 @@ public class ConsoleApi {
     private List<Shot> history = new ArrayList<>();
 
     public void gameLoop(Game game) {
-        for(;;) {
-            readFromConsole();
+        for (;;) {
+            readFromConsole(game);
             try {
                 game.setShot(getReadShot());
             } catch (Exception e) {
                 e.printStackTrace();
             }
             System.out.println(getReadShot());
-            System.out.println("This was your: " + history.size() + " shot.");
+            System.out.println("You've made: " + history.size() + " shots.");
             game.draw();
         }
     }
 
-    private void readFromConsole() {
+    private void readFromConsole(Game game) {
         String answer = SCAN.nextLine();
-        if(answer.equalsIgnoreCase("e")) {
+        if (answer.equalsIgnoreCase("e")) {
             System.exit(0);
+        }
+        if (answer.equalsIgnoreCase("r")) {
+            game.restartConsoleGame();
         }
         readShot(answer);
     }
-    
+
     private void readShot(String answer) {
         String[] answers = answer.split(" ");
         try {
@@ -41,14 +44,18 @@ public class ConsoleApi {
             int y = Integer.parseInt(answers[1]);
             shot = new Shot(x, y);
             history.add(shot);
-        } catch(Exception e) {
+        } catch (Exception e) {
             shot = null;
             System.out.println(e.getClass() + " " + e.getMessage());
             System.out.println("Wrong answer: " + answer);
         }
     }
-    
+
     public Shot getReadShot() {
         return shot;
+    }
+
+    public void clearHistory() {
+        history.clear();
     }
 }
