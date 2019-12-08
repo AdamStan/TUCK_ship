@@ -6,7 +6,7 @@ import java.util.Map;
 import com.pl.shipgame.utils.Point;
 import com.pl.shipgame.utils.Status;
 
-public abstract class ShipTemporary {
+public abstract class Ship {
     private Map<Point, Status> deck = new HashMap<>();
 
     public void addPointWithItsStatus(Point point, Status status) {

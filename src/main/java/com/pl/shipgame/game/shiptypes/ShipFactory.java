@@ -16,8 +16,8 @@ public class ShipFactory {
         
     }
     
-    public static Optional<ShipTemporary> createShip(ShipType type) {
-        ShipTemporary ship = null;
+    public static Optional<Ship> createShip(ShipType type) {
+        Ship ship = null;
         switch (type) {
         case DESTROYER:
             ship = new Destroyer();

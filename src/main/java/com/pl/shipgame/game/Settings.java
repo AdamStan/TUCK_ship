@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.pl.shipgame.game.shiptypes.ShipTemporary;
+import com.pl.shipgame.game.shiptypes.Ship;
 import com.pl.shipgame.game.shiptypes.ShipFactory;
 import com.pl.shipgame.game.shiptypes.ShipFactory.ShipType;
 
@@ -38,8 +38,8 @@ public class Settings {
         return instance;
     }
 
-    public List<ShipTemporary> createShips() {
-        List<ShipTemporary> ships = new ArrayList<>();
+    public List<Ship> createShips() {
+        List<Ship> ships = new ArrayList<>();
         for(Entry<ShipType, Integer> shipInSettings : shipsInSettings.entrySet()) {
             for(int i = 0; i < shipInSettings.getValue(); i++) {
                 ShipFactory.createShip(shipInSettings.getKey()).ifPresent(ships::add);

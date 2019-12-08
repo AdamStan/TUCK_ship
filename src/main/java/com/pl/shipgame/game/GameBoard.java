@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import com.pl.shipgame.game.shiptypes.ShipTemporary;
+import com.pl.shipgame.game.shiptypes.Ship;
 import com.pl.shipgame.utils.Point;
 import com.pl.shipgame.utils.Shot;
 import com.pl.shipgame.utils.Status;
@@ -45,7 +45,7 @@ public class GameBoard {
     private final Random rand;
     private final List<List<PointOnBoard>> points = new ArrayList<>();
     private Settings settings;
-    private List<ShipTemporary> ships;
+    private List<Ship> ships;
 
     GameBoard() {
         this.settings = Settings.getInstance();
@@ -66,7 +66,7 @@ public class GameBoard {
     private void shipsOnBoard() {
         ships = settings.createShips();
         int maxValue = settings.getBoardSize();
-        for(ShipTemporary ship : ships) {
+        for(Ship ship : ships) {
             while(!ship.isReady()) {
                 ship.clearDeck();
                 int xCoordinate = rand.nextInt(maxValue - ship.getMaximumSize());
