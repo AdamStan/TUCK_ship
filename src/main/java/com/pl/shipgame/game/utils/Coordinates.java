@@ -1,4 +1,4 @@
-package com.pl.shipgame.utils;
+package com.pl.shipgame.game.utils;
 
 import java.util.Objects;
 

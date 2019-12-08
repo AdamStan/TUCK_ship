@@ -1,24 +1,22 @@
 package com.pl.shipgame.game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
+import com.pl.shipgame.console.Drawable;
 import com.pl.shipgame.game.shiptypes.Ship;
-import com.pl.shipgame.utils.Point;
-import com.pl.shipgame.utils.Shot;
-import com.pl.shipgame.utils.Status;
+import com.pl.shipgame.game.utils.Point;
+import com.pl.shipgame.game.utils.Shot;
+import com.pl.shipgame.game.utils.Status;
 
-/*
- * o - missed hit
- * * - normal field
- * x - hit
- */
-public class GameBoard {
-
-    static class PointOnBoard {
+public class GameBoard implements Drawable{
+    /*
+     * o - missed hit
+     * * - normal field
+     * x - hit
+     */
+    static class PointOnBoard implements Drawable{
         private static String HIDDEN = "?";
         private static String SHIP_HIT = "x";
         private static String MISS = "o";
@@ -31,13 +29,16 @@ public class GameBoard {
             this.status = status;
         }
 
-        public String draw() {
-            if(!status.isHit()) {
-                return HIDDEN;
+        @Override
+        public void draw() {
+            if (!status.isHit()) {
+                System.out.print(HIDDEN);
             } else if (status.hasShip()) {
-                return SHIP_HIT;
+                System.out.print(SHIP_HIT);
+            } else {
+                System.out.print(MISS);
             }
-            return MISS;
+            System.out.print(" ");
         }
 
     }
@@ -58,38 +59,46 @@ public class GameBoard {
         for (int i = 0; i < settings.getBoardSize(); i++) {
             points.add(new ArrayList<>());
             for (int j = 0; j < settings.getBoardSize(); j++) {
-                points.get(i).add(new PointOnBoard(new Point(i, j), new Status()));
+                points.get(i)
+                        .add(new PointOnBoard(new Point(i, j), new Status()));
             }
         }
     }
 
     private void shipsOnBoard() {
         ships = settings.createShips();
+        for (Ship ship : ships) {
+            createShipsDecks(ship);
+        }
+    }
+
+    private void createShipsDecks(Ship ship) {
         int maxValue = settings.getBoardSize();
-        for(Ship ship : ships) {
-            while(!ship.isReady()) {
-                ship.clearDeck();
-                int xCoordinate = rand.nextInt(maxValue - ship.getMaximumSize());
-                int yCoordinate = rand.nextInt(maxValue);
-                for (int i = 0; i < ship.getMaximumSize(); i++) {
-                    PointOnBoard nextPoint = points.get(xCoordinate+i).get(yCoordinate);
-                    if(!nextPoint.status.hasShip()) {
-                        ship.addPointWithItsStatus(nextPoint.point, nextPoint.status);
-                    }
-                }
+        while (!ship.isReady()) {
+            ship.clearDeck();
+            int xCoordinate = rand.nextInt(maxValue - ship.getMaximumSize());
+            int yCoordinate = rand.nextInt(maxValue);
+            for (int i = 0; i < ship.getMaximumSize(); i++) {
+                addPointToShip(ship,
+                        points.get(xCoordinate + i).get(yCoordinate));
             }
         }
     }
 
-    void draw() {
-        StringBuilder builder = new StringBuilder();
+    private void addPointToShip(Ship ship, PointOnBoard point) {
+        if (!point.status.hasShip()) {
+            ship.addPointWithItsStatus(point.point, point.status);
+        }
+    }
+
+    @Override
+    public void draw() {
         for (List<PointOnBoard> row : points) {
             for (PointOnBoard point : row) {
-                builder.append(point.draw() + " ");
+                point.draw();
             }
-            builder.append("\n");
+            System.out.println();;
         }
-        System.out.print(builder.toString());
     }
 
     public void setShot(Shot shot) {

@@ -1,4 +1,4 @@
-package com.pl.shipgame.utils;
+package com.pl.shipgame.game.utils;
 
 public class Shot extends Coordinates {
 
@@ -8,7 +8,7 @@ public class Shot extends Coordinates {
 
     @Override
     public String toString() {
-        return "Shot [getX()=" + getX() + ", getY()=" + getY() + "]";
+        return "Shot [X=" + getX() + ", Y=" + getY() + "]";
     }
 
 }

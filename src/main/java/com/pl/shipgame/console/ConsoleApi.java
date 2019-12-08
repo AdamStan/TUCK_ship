@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.pl.shipgame.game.Game;
-import com.pl.shipgame.utils.Shot;
+import com.pl.shipgame.game.utils.Shot;
 
 public class ConsoleApi {
     private static final Scanner SCAN = new Scanner(System.in);

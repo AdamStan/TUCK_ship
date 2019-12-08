@@ -3,8 +3,8 @@ package com.pl.shipgame.game.shiptypes;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.pl.shipgame.utils.Point;
-import com.pl.shipgame.utils.Status;
+import com.pl.shipgame.game.utils.Point;
+import com.pl.shipgame.game.utils.Status;
 
 public abstract class Ship {
     private Map<Point, Status> deck = new HashMap<>();
@@ -13,14 +13,7 @@ public abstract class Ship {
         if (!status.hasShip()) {
             deck.put(point, status);
             status.setHasShip(true);
-        } else {
-            
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Ship [deck=" + deck + "]";
     }
 
     public boolean isReady() {

@@ -1,7 +1,7 @@
 package com.pl.shipgame.game;
 
 import com.pl.shipgame.console.ConsoleApi;
-import com.pl.shipgame.utils.Shot;
+import com.pl.shipgame.game.utils.Shot;
 
 public class Game {
     GameBoard board;
