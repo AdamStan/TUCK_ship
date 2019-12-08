@@ -1,9 +1,8 @@
 package com.pl.shipgame.game.shiptypes;
 
-public class Submarine extends ShipTemporary {
-    private static final int MAX_DECK_SIZE = 3;
+public class Cruiser extends ShipTemporary {
 
-    Submarine() {   }
+    private static final int MAX_DECK_SIZE = 3;
 
     @Override
     public int getMaximumSize() {

@@ -1,4 +1,4 @@
-package com.pl.shipgame.game.model;
+package com.pl.shipgame.game.shiptypes;
 
 import java.util.Optional;
 
@@ -16,8 +16,8 @@ public class ShipFactory {
         
     }
     
-    public static Optional<Ship> createShip(ShipType type) {
-        Ship ship = null;
+    public static Optional<ShipTemporary> createShip(ShipType type) {
+        ShipTemporary ship = null;
         switch (type) {
         case DESTROYER:
             ship = new Destroyer();

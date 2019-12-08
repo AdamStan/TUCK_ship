@@ -1,16 +1,20 @@
 package com.pl.shipgame.game.shiptypes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.pl.shipgame.utils.Point;
+import com.pl.shipgame.utils.Status;
 
 public abstract class ShipTemporary {
-    private List<Point> deck = new ArrayList<>();
+    private Map<Point, Status> deck = new HashMap<>();
 
-    public void addPoint(Point point) {
-        if (canPointBeAdded(point)) {
-            deck.add(point);
+    public void addPointWithItsStatus(Point point, Status status) {
+        if (!status.hasShip()) {
+            deck.put(point, status);
+            status.setHasShip(true);
+        } else {
+            
         }
     }
 
@@ -19,22 +23,14 @@ public abstract class ShipTemporary {
         return "Ship [deck=" + deck + "]";
     }
 
-    public void addStartingPoint(Point startingPoint) {
-        deck.add(startingPoint);
-        startingPoint.setShipSet(true);
-    }
-    
-    abstract void setRestPoints(List<Point> potentialDeck);
-    
-    public boolean checkPotentialDeck(List<Point> potentialDeck) {
-        return false;
-        
-    }
-    protected int deckSize() {
-        return deck.size();
+    public boolean isReady() {
+        return getMaximumSize() == deck.size();
     }
 
-    public abstract boolean isReady();
+    public abstract int getMaximumSize();
 
-    protected abstract boolean canPointBeAdded(Point point);
+    public void clearDeck() {
+        deck.clear();
+    }
+
 }

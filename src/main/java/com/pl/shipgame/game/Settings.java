@@ -5,16 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Random;
 
-import com.pl.shipgame.game.model.Ship;
-import com.pl.shipgame.game.model.ShipFactory;
-import com.pl.shipgame.game.model.ShipFactory.ShipType;
+import com.pl.shipgame.game.shiptypes.ShipTemporary;
+import com.pl.shipgame.game.shiptypes.ShipFactory;
+import com.pl.shipgame.game.shiptypes.ShipFactory.ShipType;
 
 public class Settings {
 
     private static Settings instance;
-    private static final Random rand = new Random();
     private int boardSize = 10;
 
     private Integer amountOfDestriyers = 5;
@@ -24,8 +22,6 @@ public class Settings {
     private Integer amountOfCarriers = 1;
 
     private Map<ShipFactory.ShipType, Integer> shipsInSettings = new HashMap<>();
-
-    private List<Ship> ships = new ArrayList<>();
 
     private Settings() {
         shipsInSettings.put(ShipFactory.ShipType.DESTROYER, amountOfDestriyers);
@@ -38,26 +34,22 @@ public class Settings {
     public static synchronized Settings getInstance() {
         if(instance == null) {
             instance = new Settings();
-            instance.createShips();
-        } else {
-            
         }
         return instance;
     }
 
-    private void createShips() {
+    public List<ShipTemporary> createShips() {
+        List<ShipTemporary> ships = new ArrayList<>();
         for(Entry<ShipType, Integer> shipInSettings : shipsInSettings.entrySet()) {
             for(int i = 0; i < shipInSettings.getValue(); i++) {
                 ShipFactory.createShip(shipInSettings.getKey()).ifPresent(ships::add);
             }
         }
+        return ships;
     }
 
     public int getBoardSize() {
         return boardSize;
-    }
-    public List<Ship> getShips() {
-        return ships;
     }
 
 }

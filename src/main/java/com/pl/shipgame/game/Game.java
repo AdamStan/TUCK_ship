@@ -18,17 +18,13 @@ public class Game {
         
     }
     
-    public void startGame() {
+    public void startConsoleGame() {
         ConsoleApi console = new ConsoleApi();
         console.gameLoop(this);
     }
-    
-    public void drawBoard() {
-        board.draw();
-    }
 
-    public void startGameWithConsoleApi() {
-        
+    public void startWindowGame() {
+        throw new UnsupportedOperationException();
     }
 
     public void setShot(Shot readShot) {
@@ -37,5 +33,9 @@ public class Game {
         } catch(Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void draw() {
+        board.draw();
     }
 }
