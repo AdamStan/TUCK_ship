@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.pl.shipgame.game.model.Ship;
 import com.pl.shipgame.utils.Point;
 import com.pl.shipgame.utils.Shot;
 
@@ -15,20 +16,21 @@ import com.pl.shipgame.utils.Shot;
 public class GameBoard {
     private final Random rand;
     private final List<List<Point>> points = new ArrayList<>();
+    
     private List<Ship> ships;
     private Settings settings;
 
-    GameBoard(Settings settings) {
-        this.settings = settings;
-        rand = new Random(settings.getMaxSize());
+    GameBoard() {
+        this.settings = Settings.getInstance();
+        rand = new Random(settings.getBoardSize());
         createPoints();
         setShipsOnBoard();
     }
 
     private void createPoints() {
-        for (int i = 0; i < settings.getMaxSize(); i++) {
+        for (int i = 0; i < settings.getBoardSize(); i++) {
             points.add(new ArrayList<>());
-            for (int j = 0; j < settings.getMaxSize(); j++) {
+            for (int j = 0; j < settings.getBoardSize(); j++) {
                 points.get(i).add(new Point(i, j));
             }
         }
@@ -36,12 +38,13 @@ public class GameBoard {
 
     private void setShipsOnBoard() {
         ships = settings.getShips();
-        int maxValue = settings.getMaxSize();
+        int maxValue = settings.getBoardSize();
         for(Ship ship : ships) {
-            while(!ship.isReady()) {
-                Point startingPoint = points.get(rand.nextInt(maxValue)).get(rand.nextInt(maxValue));
-                ship.addStartingPoint(startingPoint);
-            }
+            Point startingPoint = points.get(rand.nextInt(maxValue)).get(rand.nextInt(maxValue));
+            ship.addStartingPoint(startingPoint);
+//            while(!ship.isReady()) {
+//                
+//            }
         }
     }
 

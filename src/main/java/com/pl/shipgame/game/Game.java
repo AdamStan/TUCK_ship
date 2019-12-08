@@ -5,21 +5,14 @@ import com.pl.shipgame.utils.Shot;
 
 public class Game {
     GameBoard board;
-    Settings settings;
     
     private Game() {
         
     }
 
-    public static Game initializeGame(Settings settings) {
-        if(settings == null) {
-            settings = Settings.getDefaultSettings();
-        }
-        
+    public static Game initializeGame() {
         Game game = new Game();
-        
-        game.board = new GameBoard(settings);
-        game.settings = settings;
+        game.board = new GameBoard();
         
         return game;
         

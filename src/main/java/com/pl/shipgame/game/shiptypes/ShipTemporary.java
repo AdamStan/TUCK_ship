@@ -1,11 +1,11 @@
-package com.pl.shipgame.game;
+package com.pl.shipgame.game.shiptypes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.pl.shipgame.utils.Point;
 
-public abstract class Ship {
+public abstract class ShipTemporary {
     private List<Point> deck = new ArrayList<>();
 
     public void addPoint(Point point) {
@@ -23,12 +23,18 @@ public abstract class Ship {
         deck.add(startingPoint);
         startingPoint.setShipSet(true);
     }
-
+    
+    abstract void setRestPoints(List<Point> potentialDeck);
+    
+    public boolean checkPotentialDeck(List<Point> potentialDeck) {
+        return false;
+        
+    }
     protected int deckSize() {
         return deck.size();
     }
 
-    protected abstract boolean isReady();
+    public abstract boolean isReady();
 
     protected abstract boolean canPointBeAdded(Point point);
 }
