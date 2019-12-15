@@ -37,8 +37,8 @@ public class Game {
         try {
             wasShipHit = Boolean.valueOf(board.setShot(readShot));
         } catch(Exception ex) {
-            System.out.println("Something went wrong");
-            // ignore
+        	// on debug purpose
+            ex.printStackTrace();
         }
         return wasShipHit;
     }

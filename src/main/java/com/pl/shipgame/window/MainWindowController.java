@@ -57,18 +57,14 @@ public class MainWindowController {
             battlefield.getChildren().add(row);
         }
         root.setCenter(battlefield);
-        System.out.println("DUPA");
     }
 
     public void onShot(ActionEvent event) {
         System.out.println(event);
-        System.out.println("DUPA");
         Button button = (Button) event.getSource();
         Shot readShot = shots.get(event.getSource());
         if (readShot != null) {
             Boolean shipWasHit = game.setShot(readShot);
-            System.out.println("wow, dziala");
-
             if (shipWasHit) {
                 button.setText("x");
             } else if (!shipWasHit) {
