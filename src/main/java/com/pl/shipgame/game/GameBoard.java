@@ -11,53 +11,27 @@ import com.pl.shipgame.game.utils.Shot;
 import com.pl.shipgame.game.utils.Status;
 
 public class GameBoard implements Drawable {
-	/*
-	 * o - missed hit * - normal field x - hit
-	 */
-	static class PointOnBoard implements Drawable {
-		private static String HIDDEN = "?";
-		private static String SHIP_HIT = "x";
-		private static String MISS = "o";
-
-		Point point;
-		Status status;
-
-		PointOnBoard(Point point, Status status) {
-			this.point = point;
-			this.status = status;
-		}
-
-		@Override
-		public void draw() {
-			if (!status.isHit()) {
-				System.out.print(HIDDEN);
-			} else if (status.hasShip()) {
-				System.out.print(SHIP_HIT);
-			} else {
-				System.out.print(MISS);
-			}
-			System.out.print(" ");
-		}
-
-	}
+	private static String HIDDEN = "?";
+	private static String SHIP_HIT = "x";
+	private static String MISS = "o";
 
 	private final Random rand;
-	private final List<List<PointOnBoard>> points = new ArrayList<>();
+	private final List<List<Point>> points = new ArrayList<>();
 	private Settings settings;
 	private List<Ship> ships;
 
 	GameBoard() {
 		this.settings = Settings.getInstance();
-		rand = new Random(settings.getBoardSize());
+		rand = new Random();
 		createPoints();
 		shipsOnBoard();
 	}
 
 	private void createPoints() {
-		for (int i = 0; i < settings.getBoardSize(); i++) {
+		for (int i = 0; i < settings.getBoardHeight(); i++) {
 			points.add(new ArrayList<>());
-			for (int j = 0; j < settings.getBoardSize(); j++) {
-				points.get(i).add(new PointOnBoard(new Point(i, j), new Status()));
+			for (int j = 0; j < settings.getBoardWidth(); j++) {
+				points.get(i).add(new Point(i, j));
 			}
 		}
 	}
@@ -70,11 +44,12 @@ public class GameBoard implements Drawable {
 	}
 
 	private void createShipsDecks(Ship ship) {
-		int maxValue = settings.getBoardSize();
+		int maxValueHeight = settings.getBoardHeight();
+		int maxValueWidth = settings.getBoardWidth();
 		while (!ship.isReady()) {
 			ship.clearDeck();
-			int xCoordinate = rand.nextInt(maxValue - ship.getMaximumSize());
-			int yCoordinate = rand.nextInt(maxValue);
+			int xCoordinate = rand.nextInt(maxValueHeight - ship.getMaximumSize());
+			int yCoordinate = rand.nextInt(maxValueWidth);
 			for (int i = 0; i < ship.getMaximumSize(); i++) {
 				addPointToShip(ship, points.get(xCoordinate + i).get(yCoordinate));
 			}
@@ -97,7 +72,7 @@ public class GameBoard implements Drawable {
 		}
 	}
 
-	public boolean setShot(Shot shot) {
+	public boolean setShot(Point shot) {
 		PointOnBoard point = points.get(shot.getX() - 1).get(shot.getY() - 1);
 		point.status.setHit(true);
 		return point.status.hasShip();

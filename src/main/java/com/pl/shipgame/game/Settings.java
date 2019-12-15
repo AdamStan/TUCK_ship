@@ -11,9 +11,10 @@ import com.pl.shipgame.game.shiptypes.ShipFactory;
 import com.pl.shipgame.game.shiptypes.ShipFactory.ShipType;
 
 public class Settings {
-
     private static Settings instance;
-    private int boardSize = 10;
+
+    private int boardHeight = 10;
+    private int boardWidth = 10;
 
     private Integer amountOfDestriyers = 5;
     private Integer amountOfSubmarines = 3;
@@ -48,8 +49,12 @@ public class Settings {
         return ships;
     }
 
-    public int getBoardSize() {
-        return boardSize;
-    }
+	public int getBoardHeight() {
+		return boardHeight;
+	}
+
+	public int getBoardWidth() {
+		return boardWidth;
+	}
 
 }

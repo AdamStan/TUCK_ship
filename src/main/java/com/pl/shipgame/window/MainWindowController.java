@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.pl.shipgame.game.Game;
 import com.pl.shipgame.game.Settings;
-import com.pl.shipgame.game.utils.Shot;
+import com.pl.shipgame.game.utils.Point;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,7 +35,7 @@ public class MainWindowController {
 
     private Settings settings;
 
-    private Map<Object, Shot> shots = new HashMap<>();
+    private Map<Object, Point> shots = new HashMap<>();
 
     @FXML
     public void startGame() {
@@ -52,7 +52,7 @@ public class MainWindowController {
                 button.setMinWidth(battlefield.getPrefWidth());
                 button.setMinHeight(row.getPrefHeight());
                 row.getChildren().add(button);
-                shots.put(button, new Shot(i, j));
+                shots.put(button, new Point(i, j));
             }
             battlefield.getChildren().add(row);
         }
@@ -62,7 +62,7 @@ public class MainWindowController {
     public void onShot(ActionEvent event) {
         System.out.println(event);
         Button button = (Button) event.getSource();
-        Shot readShot = shots.get(event.getSource());
+        Point readShot = shots.get(event.getSource());
         if (readShot != null) {
             Boolean shipWasHit = game.setShot(readShot);
             if (shipWasHit) {
