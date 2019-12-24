@@ -43,10 +43,10 @@ public class MainWindowController {
         battlefield = new VBox();
         settings = Settings.getInstance();
         battlefield.setPrefWidth(50);
-        for (int i = 1; i < settings.getBoardSize() + 1; i++) {
+        for (int i = 1; i < settings.getBoardHeight() + 1; i++) {
             HBox row = new HBox();
             row.setPrefHeight(25);
-            for (int j = 1; j < settings.getBoardSize() + 1; j++) {
+            for (int j = 1; j < settings.getBoardWidth() + 1; j++) {
                 Button button = new Button(i + "?" + j);
                 button.setOnAction(this::onShot);
                 button.setMinWidth(battlefield.getPrefWidth());

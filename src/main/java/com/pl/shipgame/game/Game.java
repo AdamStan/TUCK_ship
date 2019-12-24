@@ -1,14 +1,9 @@
 package com.pl.shipgame.game;
 
-import java.util.List;
-
-import com.pl.shipgame.console.ConsoleApi;
-import com.pl.shipgame.game.utils.Shot;
-import com.pl.shipgame.game.utils.Status;
+import com.pl.shipgame.game.utils.Point;
 
 public class Game {
     private GameBoard board;
-    private ConsoleApi console;
     
     private Game() {
         
@@ -21,33 +16,15 @@ public class Game {
         return game;
         
     }
-    
-    public void startConsoleGame() {
-        console = new ConsoleApi();
-        console.gameLoop(this);
-    }
-    
-    public void restartConsoleGame() {
-        board = new GameBoard();
-        console.clearHistory();
-    }
 
-    public Boolean setShot(Shot readShot) {
+    public Boolean setShot(Point shot) {
         Boolean wasShipHit = null;
         try {
-            wasShipHit = Boolean.valueOf(board.setShot(readShot));
+            wasShipHit = Boolean.valueOf(board.setShot(shot));
         } catch(Exception ex) {
-        	// on debug purpose
+        	// for debug purpose
             ex.printStackTrace();
         }
         return wasShipHit;
-    }
-    
-    public List<List<Status>> getPointsStatus() {
-        return board.getStatuses();
-    }
-
-    public void draw() {
-        board.draw();
     }
 }

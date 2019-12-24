@@ -1,11 +1,15 @@
 package com.pl.shipgame.game.utils;
 
 import java.util.Objects;
+import java.util.Optional;
 
-public class Point{
+import com.pl.shipgame.game.shiptypes.Ship;
+
+public class Point {
     private final int x;
     private final int y;
-	private boolean hit;
+    private boolean hit;
+    private Ship ship;
 
     public Point(int x, int y) {
         this.x = x;
@@ -36,17 +40,29 @@ public class Point{
         Point other = (Point) obj;
         return x == other.x && y == other.y;
     }
-    
-    public boolean wasHit() {
-    	return hit;
+
+    public Optional<Ship> getShip() {
+        return Optional.ofNullable(ship);
     }
     
+    public void setShip(Ship shipInPoint) {
+        ship = shipInPoint;
+    }
+
+    public boolean isHit() {
+        return hit;
+    }
+
     public void setHit() {
-    	hit = true;
+        hit = true;
     }
 
     @Override
     public String toString() {
-        return "Shot [x=" + x + ", y=" + y + "]";
+        return "Point [x=" + x + ", y=" + y + "]";
+    }
+
+    public void clearShip() {
+        ship = null;
     }
 }

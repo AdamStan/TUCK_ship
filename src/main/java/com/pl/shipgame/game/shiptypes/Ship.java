@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pl.shipgame.game.utils.Point;
-import com.pl.shipgame.game.utils.PointWithShip;
 
 public abstract class Ship {
     private List<Point> deck = new ArrayList<>();
@@ -16,15 +15,16 @@ public abstract class Ship {
     public abstract int getMaximumSize();
 
     public void clearDeck() {
+        deck.forEach(point -> point.clearShip());
         deck.clear();
     }
 
-	public void addPointToDeck(PointWithShip pointWithShip) {
-		deck.add(pointWithShip);
-	}
-	
-	public boolean isShipDestroyed() {
-		return deck.stream().allMatch(point -> point.wasHit());
-	}
+    public void addPointToDeck(Point point) {
+        deck.add(point);
+    }
+
+    public boolean isShipDestroyed() {
+        return deck.stream().allMatch(point -> point.isHit());
+    }
 
 }
