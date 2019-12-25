@@ -59,7 +59,7 @@ public class GameBoard {
     }
 
     public boolean setShot(Point shot) {
-        Point hitPoint = points.get(shot.getX() - 1).get(shot.getX() - 1);
+        Point hitPoint = points.get(shot.getX() - 1).get(shot.getY() - 1);
         hitPoint.setHit();
         return hitPoint.getShip().isPresent();
     }

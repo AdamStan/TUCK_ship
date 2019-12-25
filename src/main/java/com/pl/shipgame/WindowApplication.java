@@ -15,7 +15,7 @@ public class WindowApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("MainWindow.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("window/MainWindow.fxml"));
         try {
             BorderPane rootLayout = fxmlLoader.load();
             Scene scene = new Scene(rootLayout);
@@ -23,7 +23,7 @@ public class WindowApplication extends Application {
             primaryStage.setTitle("Shipbattle");
             primaryStage.show();
         } catch(Exception ex) {
-            
+            ex.printStackTrace();
         }
     }
 

@@ -27,4 +27,8 @@ public abstract class Ship {
         return deck.stream().allMatch(point -> point.isHit());
     }
 
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "[deck=" + deck + "]";
+    }
 }

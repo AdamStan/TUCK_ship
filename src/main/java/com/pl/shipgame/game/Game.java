@@ -17,8 +17,8 @@ public class Game {
         
     }
 
-    public Boolean setShot(Point shot) {
-        Boolean wasShipHit = null;
+    public boolean setShot(Point shot) {
+        boolean wasShipHit = false;
         try {
             wasShipHit = Boolean.valueOf(board.setShot(shot));
         } catch(Exception ex) {

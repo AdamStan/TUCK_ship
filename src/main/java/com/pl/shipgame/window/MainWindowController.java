@@ -60,17 +60,15 @@ public class MainWindowController {
     }
 
     public void onShot(ActionEvent event) {
-        System.out.println(event);
         Button button = (Button) event.getSource();
         Point readShot = shots.get(event.getSource());
         if (readShot != null) {
             Boolean shipWasHit = game.setShot(readShot);
             if (shipWasHit) {
                 button.setText("x");
-            } else if (!shipWasHit) {
+            } else {
                 button.setText("o");
             }
-
             button.setDisable(true);
         }
 
