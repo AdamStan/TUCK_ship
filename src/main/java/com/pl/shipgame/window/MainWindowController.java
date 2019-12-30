@@ -1,5 +1,6 @@
 package com.pl.shipgame.window;
 
+import java.awt.TextField;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class MainWindowController {
 
@@ -66,14 +68,16 @@ public class MainWindowController {
 			Boolean shipWasHit = game.setShot(readShot);
 			if (shipWasHit) {
 				button.setText("x");
-				Boolean isShipDestroyed = game.checkIfShipIsDestroyed(readShot);
-				if (isShipDestroyed) {
-					System.out.println("Ship destroyed");
-				}
+				game.checkIfShipIsDestroyed(readShot);
 			} else {
 				button.setText("o");
 			}
 			button.setDisable(true);
+			Boolean allShipsDestroyed = game.checkIfAllShipsDestroyed();
+			if (allShipsDestroyed)
+			{
+				startGame();
+			}
 		}
 
 	}

@@ -39,4 +39,15 @@ public class Game {
 		return isShipDestroyed;
 
 	}
+
+	public boolean checkIfAllShipsDestroyed() {
+		boolean isShipDestroyed = false;
+		try {
+			isShipDestroyed = Boolean.valueOf(board.allShipsDestroyed());
+		} catch (Exception ex) {
+			// for debug purpose
+			ex.printStackTrace();
+		}
+		return isShipDestroyed;
+	}
 }

@@ -39,6 +39,6 @@ public abstract class Ship {
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + "[deck=" + deck + "]";
+		return this.getClass().getSimpleName();
 	}
 }
