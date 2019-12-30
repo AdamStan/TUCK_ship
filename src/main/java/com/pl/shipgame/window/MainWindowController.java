@@ -1,5 +1,6 @@
 package com.pl.shipgame.window;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,11 +10,15 @@ import com.pl.shipgame.game.utils.Point;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class MainWindowController {
 
@@ -72,5 +77,22 @@ public class MainWindowController {
             button.setDisable(true);
         }
 
+    }
+
+    @FXML
+    public void restoreToDefault() {
+        settings.restoreToDefault();
+        settings.reloadSettings();
+    }
+    
+    @FXML
+    public void showSettings() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("SettingsWindow.fxml"));
+        GridPane window = fxmlLoader.load();
+        Stage settingsStage = new Stage();
+        settingsStage.setScene(new Scene(window));
+        settingsStage.setTitle("Settings");
+        settingsStage.show();
     }
 }
