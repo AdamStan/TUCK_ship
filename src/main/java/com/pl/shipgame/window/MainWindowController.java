@@ -22,61 +22,66 @@ import javafx.stage.Stage;
 
 public class MainWindowController {
 
-    private Game game;
+	private Game game;
 
-    @FXML
-    private MenuItem start;
+	@FXML
+	private MenuItem start;
 
-    @FXML
-    private MenuItem restoreToDefaults;
+	@FXML
+	private MenuItem restoreToDefaults;
 
-    @FXML
-    private MenuItem moreSettings;
+	@FXML
+	private MenuItem moreSettings;
 
-    @FXML
-    private BorderPane root;
+	@FXML
+	private BorderPane root;
 
-    private VBox battlefield;
+	private VBox battlefield;
 
-    private Settings settings;
+	private Settings settings;
 
-    private Map<Object, Point> shots = new HashMap<>();
+	private Map<Object, Point> shots = new HashMap<>();
 
-    @FXML
-    public void startGame() {
-        game = Game.initializeGame();
-        battlefield = new VBox();
-        settings = Settings.getInstance();
-        battlefield.setPrefWidth(50);
-        for (int i = 1; i < settings.getBoardHeight() + 1; i++) {
-            HBox row = new HBox();
-            row.setPrefHeight(25);
-            for (int j = 1; j < settings.getBoardWidth() + 1; j++) {
-                Button button = new Button(i + "?" + j);
-                button.setOnAction(this::onShot);
-                button.setMinWidth(battlefield.getPrefWidth());
-                button.setMinHeight(row.getPrefHeight());
-                row.getChildren().add(button);
-                shots.put(button, new Point(i, j));
-            }
-            battlefield.getChildren().add(row);
-        }
-        root.setCenter(battlefield);
-    }
+	@FXML
+	public void startGame() {
+		game = Game.initializeGame();
+		battlefield = new VBox();
+		settings = Settings.getInstance();
+		battlefield.setPrefWidth(50);
+		for (int i = 1; i < settings.getBoardHeight() + 1; i++) {
+			HBox row = new HBox();
+			row.setPrefHeight(25);
+			for (int j = 1; j < settings.getBoardWidth() + 1; j++) {
+				Button button = new Button(i + "?" + j);
+				button.setOnAction(this::onShot);
+				button.setMinWidth(battlefield.getPrefWidth());
+				button.setMinHeight(row.getPrefHeight());
+				row.getChildren().add(button);
+				shots.put(button, new Point(i, j));
+			}
+			battlefield.getChildren().add(row);
+		}
+		root.setCenter(battlefield);
+	}
 
-    public void onShot(ActionEvent event) {
-        Button button = (Button) event.getSource();
-        Point readShot = shots.get(event.getSource());
-        if (readShot != null) {
-            Boolean shipWasHit = game.setShot(readShot);
-            if (shipWasHit) {
-                button.setText("x");
-            } else {
-                button.setText("o");
-            }
-            button.setDisable(true);
-        }
-
+	public void onShot(ActionEvent event) {
+		Button button = (Button) event.getSource();
+		Point readShot = shots.get(event.getSource());
+		if (readShot != null) {
+			Boolean shipWasHit = game.setShot(readShot);
+			if (shipWasHit) {
+				button.setText("x");
+				game.checkIfShipIsDestroyed(readShot);
+			} else {
+				button.setText("o");
+			}
+			button.setDisable(true);
+			Boolean allShipsDestroyed = game.checkIfAllShipsDestroyed();
+			if (allShipsDestroyed)
+			{
+				startGame();
+			}
+		}
     }
 
     @FXML
