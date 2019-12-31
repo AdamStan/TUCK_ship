@@ -93,6 +93,8 @@ public class MainWindowController {
         Stage settingsStage = new Stage();
         settingsStage.setScene(new Scene(window));
         settingsStage.setTitle("Settings");
+        SettingsController controller = fxmlLoader.getController();
+        controller.initializeSliders();
         settingsStage.show();
     }
 }

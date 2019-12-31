@@ -139,4 +139,52 @@ public class Settings {
         return boardWidth;
     }
 
+    public Integer getAmountOfDestroyers() {
+        return amountOfDestroyers;
+    }
+
+    public Integer getAmountOfSubmarines() {
+        return amountOfSubmarines;
+    }
+
+    public Integer getAmountOfCruisers() {
+        return amountOfCruisers;
+    }
+
+    public Integer getAmountOfBattleships() {
+        return amountOfBattleships;
+    }
+
+    public Integer getAmountOfCarriers() {
+        return amountOfCarriers;
+    }
+
+    public void setBoardHeight(int boardHeight) {
+        this.boardHeight = boardHeight;
+    }
+
+    public void setBoardWidth(int boardWidth) {
+        this.boardWidth = boardWidth;
+    }
+
+    public void setAmountOfDestroyers(Integer amountOfDestroyers) {
+        this.amountOfDestroyers = amountOfDestroyers;
+    }
+
+    public void setAmountOfSubmarines(Integer amountOfSubmarines) {
+        this.amountOfSubmarines = amountOfSubmarines;
+    }
+
+    public void setAmountOfCruisers(Integer amountOfCruisers) {
+        this.amountOfCruisers = amountOfCruisers;
+    }
+
+    public void setAmountOfBattleships(Integer amountOfBattleships) {
+        this.amountOfBattleships = amountOfBattleships;
+    }
+
+    public void setAmountOfCarriers(Integer amountOfCarriers) {
+        this.amountOfCarriers = amountOfCarriers;
+    }
+
 }

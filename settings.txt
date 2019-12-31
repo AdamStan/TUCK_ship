@@ -1,4 +1,4 @@
-boardHeight:10
+boardHeight:12
 boardWidth:12
 amountOfDestroyers:5
 amountOfSubmarines:3
