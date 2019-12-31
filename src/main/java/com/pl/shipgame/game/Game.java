@@ -4,6 +4,7 @@ import com.pl.shipgame.game.utils.Point;
 
 public class Game {
 	private GameBoard board;
+	private int shotCounter;
 
 	private Game() {
 
@@ -21,6 +22,7 @@ public class Game {
 		boolean wasShipHit = false;
 		try {
 			wasShipHit = Boolean.valueOf(board.setShot(shot));
+			shotCounter++;
 		} catch (Exception ex) {
 			// for debug purpose
 			ex.printStackTrace();
@@ -50,4 +52,9 @@ public class Game {
 		}
 		return isShipDestroyed;
 	}
+
+    public int getShotCounter() {
+        return shotCounter;
+    }
+
 }

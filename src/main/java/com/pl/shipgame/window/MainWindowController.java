@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -21,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainWindowController {
+    private static String labelShotCounterText = "Number of shots: ";
 
 	private Game game;
 
@@ -42,11 +44,16 @@ public class MainWindowController {
 
 	private Map<Object, Point> shots = new HashMap<>();
 
+    private Label labelWithShotHistory;
+
 	@FXML
 	public void startGame() {
 		game = Game.initializeGame();
-		battlefield = new VBox();
 		settings = Settings.getInstance();
+		battlefield = new VBox();
+		labelWithShotHistory = new Label();
+		labelWithShotHistory.setText(labelShotCounterText);
+		battlefield.getChildren().add(labelWithShotHistory);
 		battlefield.setPrefWidth(50);
 		for (int i = 1; i < settings.getBoardHeight() + 1; i++) {
 			HBox row = new HBox();
@@ -82,6 +89,7 @@ public class MainWindowController {
 				startGame();
 			}
 		}
+		labelWithShotHistory.setText(labelShotCounterText + game.getShotCounter());
     }
 
     @FXML

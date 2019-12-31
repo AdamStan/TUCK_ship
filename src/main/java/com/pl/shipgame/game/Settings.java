@@ -19,7 +19,7 @@ public class Settings {
     private static Settings instance;
     private static final File FILE = new File("settings.txt");
     private static final int boardHeightDefault = 10;
-    private static final int boardWidthDefault = 12;
+    private static final int boardWidthDefault = 10;
     private static final Integer amountOfDestroyersDefault = 5;
     private static final Integer amountOfSubmarinesDefault = 3;
     private static final Integer amountOfCruisersDefault = 3;
