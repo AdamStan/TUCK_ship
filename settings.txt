@@ -1,0 +1,7 @@
+boardHeight:12
+boardWidth:12
+amountOfDestroyers:5
+amountOfSubmarines:3
+amountOfCruisers:3
+amountOfBattleships:2
+amountOfCarriers:1
