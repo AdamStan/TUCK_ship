@@ -69,8 +69,8 @@ public class GameBoard {
 		isShipDestroyed = ship.isShipDestroyed();
 		if (isShipDestroyed) {
 			System.out.println("Ship " + ship + " destroyed!");
+			ships.remove(ship);
 		}
-		ships.remove(ship);
 		return isShipDestroyed;
 	}
 
