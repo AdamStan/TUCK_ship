@@ -38,11 +38,7 @@ public class Ship {
 				hits++;
 			}
 		}
-		if (hits == deck.size()) {
-			return true;
-		} else {
-			return false;
-		}
+		return hits == deck.size();
 	}
 
 	@Override

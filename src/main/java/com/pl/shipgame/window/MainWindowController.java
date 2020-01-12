@@ -1,10 +1,8 @@
 package com.pl.shipgame.window;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import com.pl.shipgame.game.Game;
 import com.pl.shipgame.game.Settings;
@@ -13,7 +11,6 @@ import com.pl.shipgame.game.utils.Point;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -23,7 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MainWindowController implements Initializable {
+public class MainWindowController {
 
 	private Game game;
 
@@ -44,12 +41,15 @@ public class MainWindowController implements Initializable {
 	private Settings settings;
 
 	private Map<Object, Point> shots = new HashMap<>();
+	
+	public MainWindowController() {
+	    settings = Settings.getInstance();
+    }
 
 	@FXML
 	public void startGame() {
 		game = Game.initializeGame();
 		battlefield = new VBox();
-		settings = Settings.getInstance();
 		battlefield.setPrefWidth(50);
 		for (int i = 1; i < settings.getBoardHeight() + 1; i++) {
 			HBox row = new HBox();
@@ -71,7 +71,7 @@ public class MainWindowController implements Initializable {
 		Button button = (Button) event.getSource();
 		Point readShot = shots.get(event.getSource());
 		if (readShot != null) {
-			Boolean shipWasHit = game.setShot(readShot);
+			boolean shipWasHit = game.setShot(readShot);
 			if (shipWasHit) {
 				button.setText("x");
 				game.checkIfShipIsDestroyed(readShot);
@@ -79,7 +79,7 @@ public class MainWindowController implements Initializable {
 				button.setText("o");
 			}
 			button.setDisable(true);
-			Boolean allShipsDestroyed = game.checkIfAllShipsDestroyed();
+			boolean allShipsDestroyed = game.checkIfAllShipsDestroyed();
 			if (allShipsDestroyed)
 			{
 				startGame();
@@ -90,7 +90,6 @@ public class MainWindowController implements Initializable {
     @FXML
     public void restoreToDefault() {
         settings.restoreToDefault();
-        settings.reloadSettings();
     }
     
     @FXML
@@ -106,9 +105,4 @@ public class MainWindowController implements Initializable {
         settingsStage.show();
     }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
-	}
 }

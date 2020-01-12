@@ -20,7 +20,7 @@ public class Game {
 	public boolean setShot(Point shot) {
 		boolean wasShipHit = false;
 		try {
-			wasShipHit = Boolean.valueOf(board.setShot(shot));
+			wasShipHit = board.setShot(shot);
 		} catch (Exception ex) {
 			// for debug purpose
 			ex.printStackTrace();
@@ -31,7 +31,7 @@ public class Game {
 	public boolean checkIfShipIsDestroyed(Point shot) {
 		boolean isShipDestroyed = false;
 		try {
-			isShipDestroyed = Boolean.valueOf(board.checkIfShipIsDestroyed(shot));
+			isShipDestroyed = board.checkIfShipIsDestroyed(shot);
 		} catch (Exception ex) {
 			// for debug purpose
 			ex.printStackTrace();
@@ -43,7 +43,7 @@ public class Game {
 	public boolean checkIfAllShipsDestroyed() {
 		boolean isShipDestroyed = false;
 		try {
-			isShipDestroyed = Boolean.valueOf(board.allShipsDestroyed());
+			isShipDestroyed = board.allShipsDestroyed();
 		} catch (Exception ex) {
 			// for debug purpose
 			ex.printStackTrace();
