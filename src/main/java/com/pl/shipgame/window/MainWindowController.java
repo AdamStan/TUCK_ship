@@ -1,8 +1,10 @@
 package com.pl.shipgame.window;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import com.pl.shipgame.game.Game;
 import com.pl.shipgame.game.Settings;
@@ -11,6 +13,7 @@ import com.pl.shipgame.game.utils.Point;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -20,7 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MainWindowController {
+public class MainWindowController implements Initializable {
 
 	private Game game;
 
@@ -102,4 +105,10 @@ public class MainWindowController {
         controller.initializeSliders();
         settingsStage.show();
     }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
 }

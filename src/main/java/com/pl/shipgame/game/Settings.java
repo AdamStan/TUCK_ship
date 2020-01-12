@@ -6,15 +6,19 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.pl.shipgame.game.shiptypes.Ship;
-import com.pl.shipgame.game.shiptypes.ShipFactory;
-import com.pl.shipgame.game.shiptypes.ShipFactory.ShipType;
-
+import com.pl.shipgame.game.shiptypes.ShipType;
+/**
+ * Replace modified values with java properties
+ * 
+ * @author Adam
+ *
+ */
 public class Settings {
     private static Settings instance;
     private static final File FILE = new File("settings.txt");
@@ -34,7 +38,7 @@ public class Settings {
     private Integer amountOfBattleships = 2;
     private Integer amountOfCarriers = 1;
 
-    private Map<ShipFactory.ShipType, Integer> shipsInSettings = new HashMap<>();
+    private Map<ShipType, Integer> shipsInSettings = new EnumMap<>(ShipType.class);
 
     private Settings() {
         readValuesFromFile();
@@ -100,12 +104,12 @@ public class Settings {
     }
 
     public void reloadSettings() {
-        shipsInSettings.put(ShipFactory.ShipType.DESTROYER, amountOfDestroyers);
-        shipsInSettings.put(ShipFactory.ShipType.SUBMARINE, amountOfSubmarines);
-        shipsInSettings.put(ShipFactory.ShipType.CRUISER, amountOfCruisers);
-        shipsInSettings.put(ShipFactory.ShipType.BATTLESHIP,
+        shipsInSettings.put(ShipType.DESTROYER, amountOfDestroyers);
+        shipsInSettings.put(ShipType.SUBMARINE, amountOfSubmarines);
+        shipsInSettings.put(ShipType.CRUISER, amountOfCruisers);
+        shipsInSettings.put(ShipType.BATTLESHIP,
                 amountOfBattleships);
-        shipsInSettings.put(ShipFactory.ShipType.CARRIER, amountOfCarriers);
+        shipsInSettings.put(ShipType.CARRIER, amountOfCarriers);
     }
     
     public void restoreToDefault() {
@@ -124,8 +128,7 @@ public class Settings {
         for (Entry<ShipType, Integer> shipInSettings : shipsInSettings
                 .entrySet()) {
             for (int i = 0; i < shipInSettings.getValue(); i++) {
-                ShipFactory.createShip(shipInSettings.getKey())
-                        .ifPresent(ships::add);
+                ships.add(new Ship(shipInSettings.getKey().getDeckSize()));
             }
         }
         return ships;
