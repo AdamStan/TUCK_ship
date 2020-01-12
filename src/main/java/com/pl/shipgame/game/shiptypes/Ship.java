@@ -5,17 +5,25 @@ import java.util.List;
 
 import com.pl.shipgame.game.utils.Point;
 
-public abstract class Ship {
-	private List<Point> deck = new ArrayList<>();
+public class Ship {
+	private List<Point> deck;
+	private int deckSize;
 
+	public Ship(int deckSize) {
+		deck = new ArrayList<>(deckSize);
+		this.deckSize = deckSize;
+	}
+	
 	public boolean isReady() {
 		return getMaximumSize() == deck.size();
 	}
 
-	public abstract int getMaximumSize();
+	public int getMaximumSize() {
+		return deckSize;
+	}
 
 	public void clearDeck() {
-		deck.forEach(point -> point.clearShip());
+		deck.forEach(Point::clearShip);
 		deck.clear();
 	}
 
@@ -30,11 +38,7 @@ public abstract class Ship {
 				hits++;
 			}
 		}
-		if (hits == deck.size()) {
-			return true;
-		} else {
-			return false;
-		}
+		return hits == deck.size();
 	}
 
 	@Override

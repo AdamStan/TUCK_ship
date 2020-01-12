@@ -63,14 +63,13 @@ public class GameBoard {
 	}
 
 	public boolean checkIfShipIsDestroyed(Point shot) {
-		Boolean isShipDestroyed;
 		Point hitPoint = points.get(shot.getX() - 1).get(shot.getY() - 1);
 		Ship ship = hitPoint.getShip().get();
-		isShipDestroyed = ship.isShipDestroyed();
+		boolean isShipDestroyed = ship.isShipDestroyed();
 		if (isShipDestroyed) {
 			System.out.println("Ship " + ship + " destroyed!");
+			ships.remove(ship);
 		}
-		ships.remove(ship);
 		return isShipDestroyed;
 	}
 

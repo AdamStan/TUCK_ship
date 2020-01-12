@@ -6,25 +6,29 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.pl.shipgame.game.shiptypes.Ship;
-import com.pl.shipgame.game.shiptypes.ShipFactory;
-import com.pl.shipgame.game.shiptypes.ShipFactory.ShipType;
-
+import com.pl.shipgame.game.shiptypes.ShipType;
+/**
+ * Replace modified values with java properties
+ * 
+ * @author Adam
+ *
+ */
 public class Settings {
     private static Settings instance;
     private static final File FILE = new File("settings.txt");
-    private static final int boardHeightDefault = 10;
-    private static final int boardWidthDefault = 12;
-    private static final Integer amountOfDestroyersDefault = 5;
-    private static final Integer amountOfSubmarinesDefault = 3;
-    private static final Integer amountOfCruisersDefault = 3;
-    private static final Integer amountOfBattleshipsDefault = 2;
-    private static final Integer amountOfCarriersDefault = 1;
+    private static final int BOARD_HEIGHT_DEFAULT = 10;
+    private static final int BOARD_WIDTH_DEFAULT = 12;
+    private static final Integer AMOUNT_OF_DESTROYERS_DEFAULT = 5;
+    private static final Integer AMOUNT_OF_SUBMARINES_DEFAULT = 3;
+    private static final Integer AMOUNT_OF_CRUISERS_DEFAULT = 3;
+    private static final Integer AMOUNT_OF_BATTLESHIPS_DEFAULT = 2;
+    private static final Integer AMOUNT_OF_CARRIERS_DEFAULT = 1;
 
     private int boardHeight = 10;
     private int boardWidth = 12;
@@ -34,11 +38,10 @@ public class Settings {
     private Integer amountOfBattleships = 2;
     private Integer amountOfCarriers = 1;
 
-    private Map<ShipFactory.ShipType, Integer> shipsInSettings = new HashMap<>();
+    private Map<ShipType, Integer> shipsInSettings = new EnumMap<>(ShipType.class);
 
     private Settings() {
         readValuesFromFile();
-        saveSettings();
     }
 
     private void readValuesFromFile() {
@@ -88,6 +91,8 @@ public class Settings {
         } catch (IOException e) {
             // on debug purpose
             e.printStackTrace();
+        } finally {
+            this.reloadShipSettings();
         }
     }
 
@@ -95,27 +100,27 @@ public class Settings {
         if (instance == null) {
             instance = new Settings();
         }
-        instance.reloadSettings();
+        instance.reloadShipSettings();
         return instance;
     }
 
-    public void reloadSettings() {
-        shipsInSettings.put(ShipFactory.ShipType.DESTROYER, amountOfDestroyers);
-        shipsInSettings.put(ShipFactory.ShipType.SUBMARINE, amountOfSubmarines);
-        shipsInSettings.put(ShipFactory.ShipType.CRUISER, amountOfCruisers);
-        shipsInSettings.put(ShipFactory.ShipType.BATTLESHIP,
+    private void reloadShipSettings() {
+        shipsInSettings.put(ShipType.DESTROYER, amountOfDestroyers);
+        shipsInSettings.put(ShipType.SUBMARINE, amountOfSubmarines);
+        shipsInSettings.put(ShipType.CRUISER, amountOfCruisers);
+        shipsInSettings.put(ShipType.BATTLESHIP,
                 amountOfBattleships);
-        shipsInSettings.put(ShipFactory.ShipType.CARRIER, amountOfCarriers);
+        shipsInSettings.put(ShipType.CARRIER, amountOfCarriers);
     }
     
     public void restoreToDefault() {
-        boardHeight = boardHeightDefault;
-        boardWidth = boardWidthDefault;
-        amountOfDestroyers = amountOfDestroyersDefault;
-        amountOfSubmarines = amountOfSubmarinesDefault;
-        amountOfCruisers = amountOfCruisersDefault;
-        amountOfBattleships = amountOfBattleshipsDefault;
-        amountOfCarriers = amountOfCarriersDefault;
+        boardHeight = BOARD_HEIGHT_DEFAULT;
+        boardWidth = BOARD_WIDTH_DEFAULT;
+        amountOfDestroyers = AMOUNT_OF_DESTROYERS_DEFAULT;
+        amountOfSubmarines = AMOUNT_OF_SUBMARINES_DEFAULT;
+        amountOfCruisers = AMOUNT_OF_CRUISERS_DEFAULT;
+        amountOfBattleships = AMOUNT_OF_BATTLESHIPS_DEFAULT;
+        amountOfCarriers = AMOUNT_OF_CARRIERS_DEFAULT;
         saveSettings();
     }
 
@@ -124,8 +129,7 @@ public class Settings {
         for (Entry<ShipType, Integer> shipInSettings : shipsInSettings
                 .entrySet()) {
             for (int i = 0; i < shipInSettings.getValue(); i++) {
-                ShipFactory.createShip(shipInSettings.getKey())
-                        .ifPresent(ships::add);
+                ships.add(new Ship(shipInSettings.getKey().getDeckSize()));
             }
         }
         return ships;

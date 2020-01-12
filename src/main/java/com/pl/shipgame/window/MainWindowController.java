@@ -41,12 +41,15 @@ public class MainWindowController {
 	private Settings settings;
 
 	private Map<Object, Point> shots = new HashMap<>();
+	
+	public MainWindowController() {
+	    settings = Settings.getInstance();
+    }
 
 	@FXML
 	public void startGame() {
 		game = Game.initializeGame();
 		battlefield = new VBox();
-		settings = Settings.getInstance();
 		battlefield.setPrefWidth(50);
 		for (int i = 1; i < settings.getBoardHeight() + 1; i++) {
 			HBox row = new HBox();
@@ -68,7 +71,7 @@ public class MainWindowController {
 		Button button = (Button) event.getSource();
 		Point readShot = shots.get(event.getSource());
 		if (readShot != null) {
-			Boolean shipWasHit = game.setShot(readShot);
+			boolean shipWasHit = game.setShot(readShot);
 			if (shipWasHit) {
 				button.setText("x");
 				game.checkIfShipIsDestroyed(readShot);
@@ -76,7 +79,7 @@ public class MainWindowController {
 				button.setText("o");
 			}
 			button.setDisable(true);
-			Boolean allShipsDestroyed = game.checkIfAllShipsDestroyed();
+			boolean allShipsDestroyed = game.checkIfAllShipsDestroyed();
 			if (allShipsDestroyed)
 			{
 				startGame();
@@ -87,7 +90,6 @@ public class MainWindowController {
     @FXML
     public void restoreToDefault() {
         settings.restoreToDefault();
-        settings.reloadSettings();
     }
     
     @FXML
@@ -102,4 +104,5 @@ public class MainWindowController {
         controller.initializeSliders();
         settingsStage.show();
     }
+
 }
