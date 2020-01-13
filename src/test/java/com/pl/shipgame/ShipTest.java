@@ -1,15 +1,9 @@
 package com.pl.shipgame;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
-
 import com.pl.shipgame.game.shiptypes.Ship;
 import com.pl.shipgame.game.utils.Point;
-
-import junit.framework.Assert;
 
 class ShipTest {
 
@@ -18,36 +12,75 @@ class ShipTest {
 		int deckSize = 10;
 		Ship ship = new Ship(deckSize);
 		assertEquals(deckSize, ship.getMaximumSize());
+		assertEquals(0, ship.getDeck().size());
 	}
 
 	@Test
-	void testIsReady() {
-		fail("Not yet implemented");
+	void testIsReadyTrue() {
+		int deckSize = 1;
+		Ship ship = new Ship(deckSize);
+		ship.addPointToDeck(new Point(5, 5));
+		assertEquals(true, ship.isReady());
+	}
+
+	@Test
+	void testIsReadyFalse() {
+		int deckSize = 1;
+		Ship ship = new Ship(deckSize);
+		assertEquals(false, ship.isReady());
 	}
 
 	@Test
 	void testGetMaximumSize() {
-		fail("Not yet implemented");
+		int deckSize = 10;
+		Ship ship = new Ship(deckSize);
+		assertEquals(deckSize, ship.getMaximumSize());
 	}
 
 	@Test
 	void testClearDeck() {
-		fail("Not yet implemented");
+		int deckSize = 2;
+		Ship ship = new Ship(deckSize);
+		ship.addPointToDeck(new Point(5, 10));
+		ship.addPointToDeck(new Point(15, 20));
+		assertEquals(deckSize, ship.getDeck().size());
+		ship.clearDeck();
+		assertEquals(0, ship.getDeck().size());
 	}
 
 	@Test
 	void testAddPointToDeck() {
-		fail("Not yet implemented");
+		int deckSize = 1;
+		Ship ship = new Ship(deckSize);
+		ship.addPointToDeck(new Point(5, 5));
+		assertEquals(true, ship.isReady());
 	}
 
 	@Test
-	void testIsShipDestroyed() {
-		fail("Not yet implemented");
+	void testIsShipDestroyedTrue() {
+		int deckSize = 1;
+		Point point = new Point(5, 5);
+		Ship ship = new Ship(deckSize);
+		ship.addPointToDeck(point);
+		point.setHit();
+		assertEquals(true, ship.isShipDestroyed());
+	}
+
+	@Test
+	void testIsShipDestroyedFalse() {
+		int deckSize = 1;
+		Point point = new Point(5, 5);
+		Ship ship = new Ship(deckSize);
+		ship.addPointToDeck(point);
+		assertEquals(false, ship.isShipDestroyed());
 	}
 
 	@Test
 	void testToString() {
-		fail("Not yet implemented");
+		int deckSize = 1;
+		String expectedString = "Ship";
+		Ship ship = new Ship(deckSize);
+		assertEquals(expectedString, ship.toString());
 	}
 
 }

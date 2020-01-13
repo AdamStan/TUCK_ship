@@ -10,12 +10,12 @@ public class Ship {
 	private int deckSize;
 
 	public Ship(int deckSize) {
-		deck = new ArrayList<>(deckSize);
+		deck = new ArrayList<>();
 		this.deckSize = deckSize;
 	}
 	
 	public boolean isReady() {
-		return getMaximumSize() == deck.size();
+		return getMaximumSize() == getDeck().size();
 	}
 
 	public int getMaximumSize() {
@@ -23,26 +23,30 @@ public class Ship {
 	}
 
 	public void clearDeck() {
-		deck.forEach(Point::clearShip);
-		deck.clear();
+		getDeck().forEach(Point::clearShip);
+		getDeck().clear();
 	}
 
 	public void addPointToDeck(Point point) {
-		deck.add(point);
+		getDeck().add(point);
 	}
 
 	public boolean isShipDestroyed() {
 		int hits = 0;
-		for (Point point : deck) {
+		for (Point point : getDeck()) {
 			if (point.isHit()) {
 				hits++;
 			}
 		}
-		return hits == deck.size();
+		return hits == getDeck().size();
 	}
 
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName();
+	}
+
+	public List<Point> getDeck() {
+		return deck;
 	}
 }
