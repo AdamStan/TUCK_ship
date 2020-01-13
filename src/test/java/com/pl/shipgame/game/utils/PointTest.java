@@ -80,7 +80,6 @@ class PointTest {
 	void testEqualsObjectTrueTheSameClass() {
 		int xOne = 1, yOne = 4;
 		int xTwo = 2, yTwo = 5;
-		int y = 4;
 		Point pointOne = new Point(xOne, yOne);
 		Point pointTwo = new Point(xTwo, yTwo);
 		assertTrue(pointOne.equals(pointTwo));
