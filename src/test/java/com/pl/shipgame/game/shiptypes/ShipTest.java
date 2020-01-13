@@ -1,4 +1,4 @@
-package com.pl.shipgame;
+package com.pl.shipgame.game.shiptypes;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
