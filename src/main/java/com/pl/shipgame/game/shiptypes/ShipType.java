@@ -1,7 +1,7 @@
 package com.pl.shipgame.game.shiptypes;
 
 public enum ShipType {
-	GHOST(0), DESTROYER(2), SUBMARINE(3), CRUISER(3), BATTLESHIP(4), CARRIER(5);
+	GHOST(0), DESTROYER(1), SUBMARINE(2), CRUISER(3), BATTLESHIP(4), CARRIER(5);
 
 	private int deckSize;
 
