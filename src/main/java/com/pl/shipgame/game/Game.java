@@ -3,7 +3,7 @@ package com.pl.shipgame.game;
 import com.pl.shipgame.game.utils.Point;
 
 public class Game {
-	private GameBoard board;
+	private GameBoard board = null;
 
 	private Game() {
 
