@@ -9,7 +9,7 @@ import com.pl.shipgame.game.utils.Point;
 
 public class GameBoard {
 	private final Random rand;
-	private final List<List<Point>> points = new ArrayList<>();
+	private List<List<Point>> points = new ArrayList<>();
 	private Settings settings;
 	private List<Ship> ships;
 
