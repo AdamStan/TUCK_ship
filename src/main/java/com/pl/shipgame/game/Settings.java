@@ -20,34 +20,44 @@ import com.pl.shipgame.game.shiptypes.ShipType;
  *
  */
 public class Settings {
+    private final File file;
     private static Settings instance;
-    private static final File FILE = new File("settings.txt");
-    private static final int BOARD_HEIGHT_DEFAULT = 10;
-    private static final int BOARD_WIDTH_DEFAULT = 12;
-    private static final Integer AMOUNT_OF_DESTROYERS_DEFAULT = 5;
-    private static final Integer AMOUNT_OF_SUBMARINES_DEFAULT = 3;
-    private static final Integer AMOUNT_OF_CRUISERS_DEFAULT = 3;
-    private static final Integer AMOUNT_OF_BATTLESHIPS_DEFAULT = 2;
-    private static final Integer AMOUNT_OF_CARRIERS_DEFAULT = 1;
+    private static String fileName = "settings.txt";
+    public static final int BOARD_HEIGHT_DEFAULT = 10;
+    public static final int BOARD_WIDTH_DEFAULT = 12;
+    public static final Integer AMOUNT_OF_DESTROYERS_DEFAULT = 5;
+    public static final Integer AMOUNT_OF_SUBMARINES_DEFAULT = 3;
+    public static final Integer AMOUNT_OF_CRUISERS_DEFAULT = 3;
+    public static final Integer AMOUNT_OF_BATTLESHIPS_DEFAULT = 2;
+    public static final Integer AMOUNT_OF_CARRIERS_DEFAULT = 1;
 
-    private int boardHeight = 10;
-    private int boardWidth = 12;
-    private Integer amountOfDestroyers = 5;
-    private Integer amountOfSubmarines = 3;
-    private Integer amountOfCruisers = 3;
-    private Integer amountOfBattleships = 2;
-    private Integer amountOfCarriers = 1;
+    private int boardHeight = BOARD_HEIGHT_DEFAULT;
+    private int boardWidth = BOARD_WIDTH_DEFAULT;
+    private Integer amountOfDestroyers = AMOUNT_OF_DESTROYERS_DEFAULT;
+    private Integer amountOfSubmarines = AMOUNT_OF_SUBMARINES_DEFAULT;
+    private Integer amountOfCruisers = AMOUNT_OF_CRUISERS_DEFAULT;
+    private Integer amountOfBattleships = AMOUNT_OF_BATTLESHIPS_DEFAULT;
+    private Integer amountOfCarriers = AMOUNT_OF_CARRIERS_DEFAULT;
 
     private Map<ShipType, Integer> shipsInSettings = new EnumMap<>(ShipType.class);
 
     private Settings() {
+        file = new File(fileName);
         readValuesFromFile();
     }
 
+    public static synchronized Settings getInstance() {
+        if (instance == null) {
+            instance = new Settings();
+        }
+        instance.reloadShipSettings();
+        return instance;
+    }
+
     private void readValuesFromFile() {
-        if (FILE.exists()) {
+        if (file.exists()) {
             try {
-                List<String> content = Files.readAllLines(FILE.toPath());
+                List<String> content = Files.readAllLines(file.toPath());
                 
                 for(String line : content) {
                     String[] nameAndValue = line.split(":");
@@ -69,6 +79,18 @@ public class Settings {
     }
 
     public void saveSettings() {
+        StringBuilder content = prepareSettingsToSave();
+        try {
+            Files.write(file.toPath(), content.toString().getBytes());
+        } catch (IOException e) {
+            // on debug purpose
+            e.printStackTrace();
+        } finally {
+            this.reloadShipSettings();
+        }
+    }
+    
+    private StringBuilder prepareSettingsToSave() {
         StringBuilder content = new StringBuilder();
         Field[] fields = this.getClass().getDeclaredFields();
         for (Field f : fields) {
@@ -86,22 +108,7 @@ public class Settings {
                 // ignore
             }
         }
-        try {
-            Files.write(FILE.toPath(), content.toString().getBytes());
-        } catch (IOException e) {
-            // on debug purpose
-            e.printStackTrace();
-        } finally {
-            this.reloadShipSettings();
-        }
-    }
-
-    public static synchronized Settings getInstance() {
-        if (instance == null) {
-            instance = new Settings();
-        }
-        instance.reloadShipSettings();
-        return instance;
+        return content;
     }
 
     private void reloadShipSettings() {
