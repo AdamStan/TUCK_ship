@@ -37,7 +37,7 @@ public class Point {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        return true;
+        return false;
     }
 
     public Optional<Ship> getShip() {

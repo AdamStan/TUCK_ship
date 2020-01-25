@@ -18,9 +18,9 @@ import com.pl.shipgame.game.utils.Point;
 @PrepareForTest(Game.class)
 class ShipTest {
 
-	List<Point> deck;
-	Ship ship;
-	int deckSize;
+	private List<Point> deck;
+	private Ship ship;
+	private int deckSize;
 	
 	@Test
 	void testShip() {

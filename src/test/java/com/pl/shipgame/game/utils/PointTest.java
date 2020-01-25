@@ -1,36 +1,42 @@
 package com.pl.shipgame.game.utils;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.lang.reflect.Field;
 import java.util.Objects;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 import com.pl.shipgame.game.shiptypes.Ship;
 
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Point.class)
 class PointTest {
 
-	@Test
-	void testHashCode() {
-		int x = 5;
-		int y = 10;
-		int hashCode = Objects.hash(x, y);
-		Point point = new Point(x, y);
-		assertEquals(hashCode, point.hashCode());
+	private int x;
+	private int y;
+	private boolean hit;
+	private Ship ship;
+
+	@BeforeEach
+	void init() {
+		x = 0;
+		y = 0;
+		hit = false;
+		ship = null;
 	}
 
 	@Test
-	void testPoint() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int x = 5;
-		int y = 10;
-		Point point = new Point(x, y);
-		Field fieldX = point.getClass().getDeclaredField("x");
-		Field fieldY = point.getClass().getDeclaredField("y");
-		fieldX.setAccessible(true);
-		fieldY.setAccessible(true);
-		assertEquals(x, fieldX.get(point));
-		assertEquals(y, fieldY.get(point));
+	void testPoint() {
+		int xToTest = 5;
+		int yToTest = 10;
+		Point point = new Point(xToTest, yToTest);
+		x = Whitebox.getInternalState(point, "x");
+		y = Whitebox.getInternalState(point, "y");
+		assertEquals(xToTest, x);
+		assertEquals(yToTest, y);
 	}
 
 	@Test
@@ -77,87 +83,85 @@ class PointTest {
 	}
 
 	@Test
-	void testEqualsObjectTrueTheSameClass() {
-		int xOne = 1, yOne = 4;
-		int xTwo = 2, yTwo = 5;
+	void testEqualsObjectFalseSameClass() {
+		int xOne = 1, yOne = 1;
+		int xTwo = 4, yTwo = 4;
 		Point pointOne = new Point(xOne, yOne);
 		Point pointTwo = new Point(xTwo, yTwo);
-		assertTrue(pointOne.equals(pointTwo));
+		assertFalse(pointOne.equals(pointTwo));
 	}
 
 	@Test
-	void testGetShip()
-			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int x = 2;
-		int y = 8;
-		int deckSize = 2;
-		Point point = new Point(x, y);
-		Field fieldShip = point.getClass().getDeclaredField("ship");
-		fieldShip.setAccessible(true);
-		Ship ship = new Ship(deckSize);
-		fieldShip.set(point, ship);
+	void testGetShip() {
+		int xToTest = 2;
+		int yToTest = 8;
+		int deckSizeToTest = 2;
+		Point point = new Point(xToTest, yToTest);
+		Ship ship = new Ship(deckSizeToTest);
+		point.setShip(ship);
 		assertEquals(ship, point.getShip().get());
 	}
 
 	@Test
-	void testSetShip()
-			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int x = 2;
-		int y = 8;
-		int deckSize = 2;
-		Point point = new Point(x, y);
-		Field fieldShip = point.getClass().getDeclaredField("ship");
-		fieldShip.setAccessible(true);
-		Ship ship = new Ship(deckSize);
+	void testSetShip() {
+		int xToTest = 2;
+		int yToTest = 8;
+		int deckSizeToTest = 2;
+		Point point = new Point(xToTest, yToTest);
+		Ship ship = new Ship(deckSizeToTest);
 		point.setShip(ship);
-		assertEquals(ship, fieldShip.get(point));
+		assertEquals(ship, point.getShip().get());
 	}
 
 	@Test
-	void testIsHit() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int x = 2;
-		int y = 8;
-		Point point = new Point(x, y);
-		Field fieldHit = point.getClass().getDeclaredField("hit");
-		fieldHit.setAccessible(true);
-		fieldHit.setBoolean(point, true);
+	void testIsHit() {
+		int xToTest = 2;
+		int yToTest = 8;
+		Point point = new Point(xToTest, yToTest);
+		Whitebox.setInternalState(point, Boolean.class, true);
 		assertTrue(point.isHit());
 	}
 
 	@Test
-	void testSetHit() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int x = 2;
-		int y = 8;
-		Point point = new Point(x, y);
-		Field fieldHit = point.getClass().getDeclaredField("hit");
-		fieldHit.setAccessible(true);
+	void testSetHit() {
+		int xToTest = 2;
+		int yToTest = 8;
+		Point point = new Point(xToTest, yToTest);
 		point.setHit();
-		assertTrue(fieldHit.getBoolean(point));
+		assertTrue(point.isHit());
 	}
 
 	@Test
 	void testToString() {
-		int x = 2;
-		int y = 8;
-		String expectedString = "Point [x=" + x + ", y=" + y + "]";
-		Point point = new Point(x, y);
+		int xToTest = 2;
+		int yToTest = 8;
+		Point point = new Point(xToTest, yToTest);
+		String expectedString = "Point [x=" + xToTest + ", y=" + yToTest + "]";
 		assertEquals(expectedString, point.toString());
 	}
 
 	@Test
-	void testClearShip()
-			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int x = 2;
-		int y = 8;
-		int deckSize = 2;
-		Point point = new Point(x, y);
-		Field fieldShip = point.getClass().getDeclaredField("ship");
-		fieldShip.setAccessible(true);
-		Ship ship = new Ship(deckSize);
-		fieldShip.set(point, ship);
-		assertEquals(ship, fieldShip.get(point));
+	void testClearShip() {
+		int xToTest = 2;
+		int yToTest = 8;
+		Point point = new Point(xToTest, yToTest);
+		int deckSizeToTest = 2;
+		Ship shipToTest = new Ship(deckSizeToTest);
+		Whitebox.setInternalState(point, Ship.class, shipToTest);
+		ship = Whitebox.getInternalState(point, Ship.class);
+		assertEquals(shipToTest, ship);
 		point.clearShip();
-		assertEquals(null, fieldShip.get(point));
+		ship = Whitebox.getInternalState(point, Ship.class);
+		assertEquals(null, ship);
+	}
+
+	@Test
+	void testHashCode() {
+		int x = 5;
+		int y = 10;
+		int hashCode = Objects.hash(x, y);
+		Point point = new Point(x, y);
+		assertEquals(hashCode, point.hashCode());
 	}
 
 }
