@@ -12,42 +12,25 @@ public class Game {
 	public static Game initializeGame() {
 		Game game = new Game();
 		game.board = new GameBoard();
-
 		return game;
-
 	}
 
 	public boolean setShot(Point shot) {
 		boolean wasShipHit = false;
-		try {
-			wasShipHit = board.setShot(shot);
-		} catch (Exception ex) {
-			// for debug purpose
-			ex.printStackTrace();
-		}
+		wasShipHit = board.setShot(shot);
 		return wasShipHit;
 	}
 
 	public boolean checkIfShipIsDestroyed(Point shot) {
 		boolean isShipDestroyed = false;
-		try {
-			isShipDestroyed = board.checkIfShipIsDestroyed(shot);
-		} catch (Exception ex) {
-			// for debug purpose
-			ex.printStackTrace();
-		}
+		isShipDestroyed = board.checkIfShipIsDestroyed(shot);
 		return isShipDestroyed;
 
 	}
 
 	public boolean checkIfAllShipsDestroyed() {
 		boolean isShipDestroyed = false;
-		try {
-			isShipDestroyed = board.allShipsDestroyed();
-		} catch (Exception ex) {
-			// for debug purpose
-			ex.printStackTrace();
-		}
+		isShipDestroyed = board.allShipsDestroyed();
 		return isShipDestroyed;
 	}
 }
