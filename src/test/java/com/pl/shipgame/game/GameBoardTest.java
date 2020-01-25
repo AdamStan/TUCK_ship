@@ -7,30 +7,24 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.powermock.reflect.Whitebox;
 
 import com.pl.shipgame.game.shiptypes.Ship;
 import com.pl.shipgame.game.utils.Point;
 
 class GameBoardTest {
 
-	GameBoard board;
-	Settings settings;
-	List<Ship> ships;
-	List<List<Point>> points;
+	private GameBoard board;
+	private Settings settings;
+	private List<Ship> ships;
+	private List<List<Point>> points;
 
-	@SuppressWarnings("unchecked")
 	@BeforeEach
-	void init() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	void init() {
 		board = new GameBoard();
-		Field fieldSettings = board.getClass().getDeclaredField("settings");
-		Field fieldShips = board.getClass().getDeclaredField("ships");
-		Field fieldPoints = board.getClass().getDeclaredField("points");
-		fieldSettings.setAccessible(true);
-		fieldShips.setAccessible(true);
-		fieldPoints.setAccessible(true);
-		settings = (Settings) fieldSettings.get(board);
-		ships = (List<Ship>) fieldShips.get(board);
-		points = (List<List<Point>>) fieldPoints.get(board);
+		settings = Whitebox.getInternalState(board, "settings");
+		ships = Whitebox.getInternalState(board, "ships");
+		points = Whitebox.getInternalState(board, "points");
 	}
 
 	@Test
