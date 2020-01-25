@@ -74,7 +74,6 @@ public class GameBoard {
 	}
 
 	public boolean allShipsDestroyed() {
-		System.out.println("Wejszlo");
 		if (ships.isEmpty()) {
 			System.out.println("All ships Destroyed");
 			return true;

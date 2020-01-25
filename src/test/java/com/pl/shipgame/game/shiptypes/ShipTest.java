@@ -1,44 +1,54 @@
 package com.pl.shipgame.game.shiptypes;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import java.lang.reflect.Field;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
+import com.pl.shipgame.game.Game;
 import com.pl.shipgame.game.shiptypes.Ship;
 import com.pl.shipgame.game.utils.Point;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Game.class)
 class ShipTest {
 
-	@SuppressWarnings("unchecked")
+	List<Point> deck;
+	Ship ship;
+	int deckSize;
+	
 	@Test
-	void testShip() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int deckSize = 10;
-		Ship ship = new Ship(deckSize);
-		Field fieldDeck = ship.getClass().getDeclaredField("deck");
-		Field fieldDeckSize = ship.getClass().getDeclaredField("deckSize");
-		fieldDeck.setAccessible(true);
-		fieldDeckSize.setAccessible(true);
-		assertEquals(deckSize, fieldDeckSize.getInt(ship));
-		List<Point> deck = (List<Point>) fieldDeck.get(ship);
+	void testShip() {
+		final int deckSizeToTest = 10;
+		ship = new Ship(deckSizeToTest);
+		deck = Whitebox.getInternalState(ship, "deck");
+		deckSize = Whitebox.getInternalState(ship, "deckSize");
+		assertEquals(deckSize, deckSize);
 		assertEquals(0, deck.size());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
-	void testIsReadyTrue() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int deckSize = 1;
-		Ship ship = new Ship(deckSize);
-		Field fieldDeck = ship.getClass().getDeclaredField("deck");
-		fieldDeck.setAccessible(true);
-		List<Point> deck = (List<Point>) fieldDeck.get(ship);
-		deck.add(new Point(5, 5));
+	void testIsReadyTrue() {
+		final int  deckSizeToTest = 1;
+		Ship ship = new Ship(deckSizeToTest);
+		deck = mock(List.class);
+		Whitebox.setInternalState(ship, List.class, deck);
+		when(deck.size()).thenReturn(deckSizeToTest);
 		assertEquals(true, ship.isReady());
 	}
 
 	@Test
 	void testIsReadyFalse() {
-		int deckSize = 1;
-		Ship ship = new Ship(deckSize);
+		final int deckSizeToTest = 1;
+		Ship ship = new Ship(deckSizeToTest);
+		deck = mock(List.class);
+		Whitebox.setInternalState(ship, List.class, deck);
+		when(deck.size()).thenReturn(0);
 		assertEquals(false, ship.isReady());
 	}
 
@@ -49,62 +59,46 @@ class ShipTest {
 		assertEquals(deckSize, ship.getMaximumSize());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
-	void testClearDeck() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int deckSize = 2;
-		Ship ship = new Ship(deckSize);
-		Field fieldDeck = ship.getClass().getDeclaredField("deck");
-		fieldDeck.setAccessible(true);
-		List<Point> deck = (List<Point>) fieldDeck.get(ship);
+	void testClearDeck() {
+		final int deckSizeToTest = 2;
+		Ship ship = new Ship(deckSizeToTest);
+		deck = Whitebox.getInternalState(ship, "deck");
 		deck.add(new Point(5, 10));
 		deck.add(new Point(15, 20));
-		assertEquals(deckSize, deck.size());
+		assertEquals(deckSizeToTest, deck.size());
 		ship.clearDeck();
 		assertEquals(0, deck.size());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
-	void testAddPointToDeck() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int deckSize = 1;
-		Ship ship = new Ship(deckSize);
-		Field fieldDeck = ship.getClass().getDeclaredField("deck");
-		fieldDeck.setAccessible(true);
-		List<Point> deck = (List<Point>) fieldDeck.get(ship);
+	void testAddPointToDeck() {
+		final int deckSizeToTest = 1;
+		Ship ship = new Ship(deckSizeToTest);
+		deck = Whitebox.getInternalState(ship, "deck");
 		ship.addPointToDeck(new Point(5, 5));
-		assertEquals(deckSize, deck.size());
+		assertEquals(deckSizeToTest, deck.size());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
-	void testIsShipDestroyedTrue() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int deckSize = 1;
-		Point point = new Point(5, 5);
-		Ship ship = new Ship(deckSize);
-		Field fieldDeck = ship.getClass().getDeclaredField("deck");
-		Field fieldHit = point.getClass().getDeclaredField("hit");
-		fieldDeck.setAccessible(true);
-		fieldHit.setAccessible(true);
-		List<Point> deck = (List<Point>) fieldDeck.get(ship);
+	void testIsShipDestroyedTrue() {
+		int deckSizeToTest = 1;
+		Ship ship = new Ship(deckSizeToTest);
+		Point point = mock(Point.class);
+		deck = Whitebox.getInternalState(ship, "deck");
 		deck.add(point);
-		fieldHit.setBoolean(point, true);
+		when(point.isHit()).thenReturn(true);
 		assertEquals(true, ship.isShipDestroyed());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
-	void testIsShipDestroyedFalse() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		int deckSize = 1;
-		Point point = new Point(5, 5);
-		Ship ship = new Ship(deckSize);
-		Field fieldDeck = ship.getClass().getDeclaredField("deck");
-		Field fieldHit = point.getClass().getDeclaredField("hit");
-		fieldDeck.setAccessible(true);
-		fieldHit.setAccessible(true);
-		List<Point> deck = (List<Point>) fieldDeck.get(ship);
+	void testIsShipDestroyedFalse() {
+		int deckSizeToTest = 1;
+		Ship ship = new Ship(deckSizeToTest);
+		Point point = mock(Point.class);
+		deck = Whitebox.getInternalState(ship, "deck");
 		deck.add(point);
-		fieldHit.setBoolean(point, false);
+		when(point.isHit()).thenReturn(false);
 		assertEquals(false, ship.isShipDestroyed());
 	}
 
