@@ -2,6 +2,7 @@ package com.pl.shipgame.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import com.pl.shipgame.game.shiptypes.Ship;
@@ -62,16 +63,20 @@ public class GameBoard {
 		return hitPoint.getShip().isPresent();
 	}
 
-	public boolean checkIfShipIsDestroyed(Point shot) {
-		Point hitPoint = points.get(shot.getX() - 1).get(shot.getY() - 1);
-		Ship ship = hitPoint.getShip().get();
-		boolean isShipDestroyed = ship.isShipDestroyed();
-		if (isShipDestroyed) {
-			System.out.println("Ship " + ship + " destroyed!");
-			ships.remove(ship);
-		}
-		return isShipDestroyed;
-	}
+    public boolean checkIfShipIsDestroyed(Point shot) {
+        Point hitPoint = points.get(shot.getX() - 1).get(shot.getY() - 1);
+        Optional<Ship> optionalShip = hitPoint.getShip();
+        boolean isShipDestroyed = false;
+        if (optionalShip.isPresent()) {
+            Ship ship = optionalShip.get();
+            isShipDestroyed = ship.isShipDestroyed();
+            if (isShipDestroyed) {
+                System.out.println("Ship " + ship + " destroyed!");
+                ships.remove(ship);
+            }
+        }
+        return isShipDestroyed;
+    }
 
 	public boolean allShipsDestroyed() {
 		if (ships.isEmpty()) {

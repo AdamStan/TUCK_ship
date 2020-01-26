@@ -1,100 +1,120 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.pl.shipgame</groupId>
-	<artifactId>com.pl.shipgame</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Shipgame</name>
-	<properties>
-		<maven.compiler.target>11</maven.compiler.target>
-		<maven.compiler.source>11</maven.compiler.source>
-		<sonar.projectKey>AdamStan_TUCK_ship</sonar.projectKey>
-		<sonar.organization>adamstan123</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.login>30871fb5392e6f4062b556ba6b9f6a51c73a3cc6</sonar.login>
-	</properties>
-	<dependencies>
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-base</artifactId>
-			<version>11.0.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>11.0.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>11.0.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>11.0.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-media -->
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-media</artifactId>
-			<version>11.0.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-web -->
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-web</artifactId>
-			<version>11.0.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>2.28.2</version>
-			<scope>test</scope>
-		</dependency>
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+ <modelVersion>4.0.0</modelVersion>
+ <groupId>com.pl.shipgame</groupId>
+ <artifactId>com.pl.shipgame</artifactId>
+ <version>0.0.1-SNAPSHOT</version>
+ <name>Shipgame</name>
+ <properties>
+  <maven.compiler.target>11</maven.compiler.target>
+  <maven.compiler.source>11</maven.compiler.source>
+  <sonar.projectKey>AdamStan_TUCK_ship</sonar.projectKey>
+  <sonar.organization>adamstan123</sonar.organization>
+  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+  <sonar.login>30871fb5392e6f4062b556ba6b9f6a51c73a3cc6</sonar.login>
+ </properties>
+ <dependencies>
+  <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
+  <dependency>
+   <groupId>org.openjfx</groupId>
+   <artifactId>javafx-base</artifactId>
+   <version>11.0.2</version>
+  </dependency>
+  <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
+  <dependency>
+   <groupId>org.openjfx</groupId>
+   <artifactId>javafx-fxml</artifactId>
+   <version>11.0.2</version>
+  </dependency>
+  <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+  <dependency>
+   <groupId>org.openjfx</groupId>
+   <artifactId>javafx-controls</artifactId>
+   <version>11.0.2</version>
+  </dependency>
+  <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
+  <dependency>
+   <groupId>org.openjfx</groupId>
+   <artifactId>javafx-graphics</artifactId>
+   <version>11.0.2</version>
+  </dependency>
+  <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-media -->
+  <dependency>
+   <groupId>org.openjfx</groupId>
+   <artifactId>javafx-media</artifactId>
+   <version>11.0.2</version>
+  </dependency>
+  <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-web -->
+  <dependency>
+   <groupId>org.openjfx</groupId>
+   <artifactId>javafx-web</artifactId>
+   <version>11.0.2</version>
+  </dependency>
+  <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+  <dependency>
+   <groupId>org.mockito</groupId>
+   <artifactId>mockito-core</artifactId>
+   <version>2.28.2</version>
+   <scope>test</scope>
+  </dependency>
 
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.4.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.4.2</version>
-			<scope>test</scope>
-		</dependency>
+  <dependency>
+   <groupId>org.junit.jupiter</groupId>
+   <artifactId>junit-jupiter-api</artifactId>
+   <version>5.4.2</version>
+   <scope>test</scope>
+  </dependency>
+  <dependency>
+   <groupId>org.junit.jupiter</groupId>
+   <artifactId>junit-jupiter-engine</artifactId>
+   <version>5.4.2</version>
+   <scope>test</scope>
+  </dependency>
 
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4</artifactId>
-			<version>2.0.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito2</artifactId>
-			<version>2.0.2</version>
-			<scope>test</scope>
-		</dependency>
+  <dependency>
+   <groupId>org.powermock</groupId>
+   <artifactId>powermock-module-junit4</artifactId>
+   <version>2.0.2</version>
+   <scope>test</scope>
+  </dependency>
+  <dependency>
+   <groupId>org.powermock</groupId>
+   <artifactId>powermock-api-mockito2</artifactId>
+   <version>2.0.2</version>
+   <scope>test</scope>
+  </dependency>
 
 
-	</dependencies>
+ </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.1</version>
-			</plugin>
-		</plugins>
-	</build>
+ <build>
+  <plugins>
+   <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>2.22.1</version>
+   </plugin>
+  <plugin>
+   <groupId>org.jacoco</groupId>
+   <artifactId>jacoco-maven-plugin</artifactId>
+   <version>0.8.2</version>
+   <executions>
+    <execution>
+     <goals>
+      <goal>prepare-agent</goal>
+     </goals>
+    </execution>
+    <!-- attached to Maven test phase -->
+    <execution>
+     <id>report</id>
+     <phase>test</phase>
+     <goals>
+      <goal>report</goal>
+     </goals>
+    </execution>
+   </executions>
+  </plugin>
+  </plugins>
+ </build>
 </project>

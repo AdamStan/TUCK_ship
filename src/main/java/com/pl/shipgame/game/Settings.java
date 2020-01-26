@@ -61,20 +61,24 @@ public class Settings {
                 
                 for(String line : content) {
                     String[] nameAndValue = line.split(":");
-                    try {
-                        Field field = this.getClass().getDeclaredField(nameAndValue[0]);
-                        field.setAccessible(true);
-                        field.set(this, Integer.valueOf(nameAndValue[1]));
-                    } catch (NoSuchFieldException | SecurityException e) {
-                        //ignore
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    setFieldValue(nameAndValue[0], nameAndValue[1]);
                 }
             } catch (IOException e) {
                 // on debug purpose
                 e.printStackTrace();
             }
+        }
+    }
+    
+    private void setFieldValue(String fieldName, String value) {
+        try {
+            Field field = this.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(this, Integer.valueOf(value));
+        } catch (NoSuchFieldException | SecurityException e) {
+            // ignore
+        } catch (Exception e) {
+            // ignore
         }
     }
 

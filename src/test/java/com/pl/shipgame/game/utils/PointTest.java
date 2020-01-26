@@ -90,6 +90,33 @@ class PointTest {
 		Point pointTwo = new Point(xTwo, yTwo);
 		assertFalse(pointOne.equals(pointTwo));
 	}
+	
+	@Test
+    void testEqualsDiffrentObjectsSameValues() {
+        int xOne = 1, yOne = 1;
+        int xTwo = 1, yTwo = 1;
+        Point pointOne = new Point(xOne, yOne);
+        Point pointTwo = new Point(xTwo, yTwo);
+        assertTrue(pointOne.equals(pointTwo));
+    }
+	
+	@Test
+    void testEqualsDiffrentXValues() {
+        int xOne = 1, yOne = 1;
+        int xTwo = 2, yTwo = 1;
+        Point pointOne = new Point(xOne, yOne);
+        Point pointTwo = new Point(xTwo, yTwo);
+        assertFalse(pointOne.equals(pointTwo));
+    }
+	
+	@Test
+    void testEqualsDiffrentYValues() {
+        int xOne = 1, yOne = 1;
+        int xTwo = 1, yTwo = 2;
+        Point pointOne = new Point(xOne, yOne);
+        Point pointTwo = new Point(xTwo, yTwo);
+        assertFalse(pointOne.equals(pointTwo));
+    }
 
 	@Test
 	void testGetShip() {

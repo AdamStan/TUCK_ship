@@ -36,8 +36,6 @@ public class MainWindowController {
 	@FXML
 	private BorderPane root;
 
-	private VBox battlefield;
-
 	private Settings settings;
 
 	private Map<Object, Point> shots = new HashMap<>();
@@ -49,7 +47,7 @@ public class MainWindowController {
 	@FXML
 	public void startGame() {
 		game = Game.initializeGame();
-		battlefield = new VBox();
+		VBox battlefield = new VBox();
 		battlefield.setPrefWidth(50);
 		for (int i = 1; i < settings.getBoardHeight() + 1; i++) {
 			HBox row = new HBox();
