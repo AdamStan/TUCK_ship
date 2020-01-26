@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 
 import com.pl.shipgame.game.shiptypes.Ship;
 import com.pl.shipgame.game.shiptypes.ShipType;
+
 /**
  * Replace modified values with java properties
  * 
@@ -39,7 +40,8 @@ public class Settings {
     private Integer amountOfBattleships = AMOUNT_OF_BATTLESHIPS_DEFAULT;
     private Integer amountOfCarriers = AMOUNT_OF_CARRIERS_DEFAULT;
 
-    private Map<ShipType, Integer> shipsInSettings = new EnumMap<>(ShipType.class);
+    private Map<ShipType, Integer> shipsInSettings = new EnumMap<>(
+            ShipType.class);
 
     private Settings() {
         file = new File(fileName);
@@ -58,25 +60,22 @@ public class Settings {
         if (file.exists()) {
             try {
                 List<String> content = Files.readAllLines(file.toPath());
-                
-                for(String line : content) {
+
+                for (String line : content) {
                     String[] nameAndValue = line.split(":");
                     setFieldValue(nameAndValue[0], nameAndValue[1]);
                 }
             } catch (IOException e) {
-                // on debug purpose
-                e.printStackTrace();
+                // ignore
             }
         }
     }
-    
+
     private void setFieldValue(String fieldName, String value) {
         try {
             Field field = this.getClass().getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(this, Integer.valueOf(value));
-        } catch (NoSuchFieldException | SecurityException e) {
-            // ignore
         } catch (Exception e) {
             // ignore
         }
@@ -93,7 +92,7 @@ public class Settings {
             this.reloadShipSettings();
         }
     }
-    
+
     private StringBuilder prepareSettingsToSave() {
         StringBuilder content = new StringBuilder();
         Field[] fields = this.getClass().getDeclaredFields();
@@ -101,7 +100,8 @@ public class Settings {
             try {
                 f.setAccessible(true);
                 Object value = f.get(this);
-                if (!(value instanceof Integer) || Modifier.isFinal(f.getModifiers())) {
+                if (!(value instanceof Integer)
+                        || Modifier.isFinal(f.getModifiers())) {
                     continue;
                 }
                 content.append(f.getName());
@@ -119,11 +119,10 @@ public class Settings {
         shipsInSettings.put(ShipType.DESTROYER, amountOfDestroyers);
         shipsInSettings.put(ShipType.SUBMARINE, amountOfSubmarines);
         shipsInSettings.put(ShipType.CRUISER, amountOfCruisers);
-        shipsInSettings.put(ShipType.BATTLESHIP,
-                amountOfBattleships);
+        shipsInSettings.put(ShipType.BATTLESHIP, amountOfBattleships);
         shipsInSettings.put(ShipType.CARRIER, amountOfCarriers);
     }
-    
+
     public void restoreToDefault() {
         boardHeight = BOARD_HEIGHT_DEFAULT;
         boardWidth = BOARD_WIDTH_DEFAULT;
